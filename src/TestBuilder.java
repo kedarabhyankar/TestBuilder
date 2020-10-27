@@ -2,6 +2,7 @@ public class TestBuilder {
 
     private String methodName;
     private int[] modifiers;
+    private Class<?>[] throwsClazz;
 
     /**
      * The {@code TestBuilder} constructor. In order to use this test builder, use this as a base and then build a
@@ -79,6 +80,47 @@ public class TestBuilder {
         }
         return this;
     }
+
+    /**
+     * A method to add a throws clause to the expected method.
+     *
+     * @param throwClazz the class to throw. The class passed in must extend exception!
+     * @return the {@code TestBuilder} with the updated throw clause.
+     */
+    public TestBuilder addThrowsClause(Class<?> throwClazz) {
+        if (!throwClazz.getSuperclass().equals(Exception.class)) return this;
+        if (this.throwsClazz == null) {
+            this.throwsClazz = new Class<?>[1];
+        } else {
+            Class<?>[] temp = new Class<?>[this.throwsClazz.length];
+            System.arraycopy(throwsClazz, 0, temp, 0, throwsClazz.length);
+            this.throwsClazz = new Class<?>[temp.length + 1];
+            System.arraycopy(temp, 0, this.throwsClazz, 0, temp.length);
+            this.throwsClazz[temp.length] = throwClazz;
+        }
+
+        return this;
+    }
+
+    /**
+     * Removes a specified throws clause from the {@code TestBuilder}.
+     *
+     * @param throwClazz the class to remove as a throwable. The class passed in must extend exception!
+     * @return the {@code TestBuilder} with the updated throw clause.
+     */
+    public TestBuilder removeThrowsClause(Class<?> throwClazz) {
+        if (!throwClazz.getSuperclass().equals(Exception.class) || this.throwsClazz == null) return this;
+        for (int i = 0; i < this.throwsClazz.length; i++) {
+            if (throwsClazz[i].equals(throwClazz)) {
+                throwsClazz[i] = null;
+                return this;
+            }
+        }
+        return this;
+    }
+
+
+    
 
     /**
      * Updates the modifier array with the given state for its given name. Modifiers are organized in the
