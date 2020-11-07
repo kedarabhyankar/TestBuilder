@@ -5,7 +5,7 @@ import java.util.Arrays;
  * by invocation of the {@code assertEquality} method.
  *
  * @author kedarabhyankar
- * @version 11/7/2020
+ * @version 11/07/2020
  */
 @SuppressWarnings("unused")
 public class MethodTest {
