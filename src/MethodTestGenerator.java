@@ -43,22 +43,18 @@ public class MethodTestGenerator {
 
         String modifierString = Modifier.toString(classReferenceMethod.getModifiers());
         String[] modifiers = modifierString.substring(1, modifierString.length() - 1).split(" ");
-        MethodTest methodTest = new MethodTest();
-        methodTest.setMethodName(methodName);
+
+        String[] mods = new String[modifiers.length];
+        int modsPtr = 0;
         for (String s : modifiers) {
             String modName = s.substring(0, s.indexOf("="));
             boolean isMod = Boolean.parseBoolean(s.substring(s.indexOf("=")));
             if (isMod) {
-                methodTest.addModifier(modName);
+                mods[modsPtr++] = modName;
             }
         }
 
-        Class<?>[] throwzz = classReferenceMethod.getExceptionTypes();
-        for (Class<?> t : throwzz) {
-            methodTest.addThrowsClause(t);
-        }
-
-
-        return methodTest;
+        return new MethodTest().setMethodName(methodName).setModifiers(mods).
+                setThrows(classReferenceMethod.getExceptionTypes()).build();
     }
 }

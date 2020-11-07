@@ -39,15 +39,13 @@ public class MethodTest {
      * Adds an expected modifier to the {@code MethodTest}.
      *
      * @param modifierName the modifier to expect
-     * @return the {@code MethodTest} with the newly built modifier.
      */
     @SuppressWarnings("unused")
-    public MethodTest addModifier(String modifierName) {
+    private void addModifier(String modifierName) {
         if (this.modifiers == null) {
             this.modifiers = new int[12];
         }
-
-        return observeModifier(modifierName);
+        observeModifier(modifierName);
     }
 
     /**
@@ -67,14 +65,26 @@ public class MethodTest {
     }
 
     /**
+     * Set the throws for this method, if any.
+     *
+     * @param throwsClazz an array of classes representing the exceptions thrown.
+     * @return the built {@code MethodTest}.
+     */
+    public MethodTest setThrows(Class<?>[] throwsClazz) {
+        for (Class<?> c : throwsClazz) {
+            this.addThrowsClause(c);
+        }
+        return this;
+    }
+
+    /**
      * A method to add a throws clause to the expected method.
      *
      * @param throwClazz the class to throw. The class passed in must extend exception!
-     * @return the {@code MethodTest} with the updated throw clause.
      */
     @SuppressWarnings("unused")
-    public MethodTest addThrowsClause(Class<?> throwClazz) {
-        if (!throwClazz.getSuperclass().equals(Exception.class)) return this;
+    private void addThrowsClause(Class<?> throwClazz) {
+        if (!throwClazz.getSuperclass().equals(Exception.class)) return;
         if (this.throwsClazz == null) {
             this.throwsClazz = new Class<?>[1];
         } else {
@@ -84,23 +94,31 @@ public class MethodTest {
             System.arraycopy(temp, 0, this.throwsClazz, 0, temp.length);
             this.throwsClazz[temp.length] = throwClazz;
         }
-
-        return this;
     }
 
+    /**
+     * A method to set the parameters of a {@code MethodTest}.
+     *
+     * @param parameters the parameters to add to a {@code MethodTest}
+     * @return the new {@code MethodTest}.
+     */
+    public MethodTest setParameters(Class<?>[] parameters) {
+        for (Class<?> p : parameters) {
+            this.addParameter(p);
+        }
+        return this;
+    }
 
     /**
      * Add a parameter to this {@code MethodTest} object.
      *
      * @param paramClazz the parameter to add to the {@code MethodTest}.
-     * @return the {@code MethodTest} with the updated parameter list.
      */
     @SuppressWarnings("unused")
-    public MethodTest addParameter(Class<?> paramClazz) {
+    private void addParameter(Class<?> paramClazz) {
         if (this.parameterClazz == null) {
             this.parameterClazz = new Class<?>[1];
             this.parameterClazz[0] = paramClazz;
-            return this;
         }
 
         Class<?>[] tempClazz = new Class<?>[this.parameterClazz.length];
@@ -115,6 +133,14 @@ public class MethodTest {
             this.parameterClazz[i] = tempClazz[i];
         }
         this.parameterClazz[tempClazz.length] = paramClazz;
+    }
+
+    /**
+     * A build method to return the object. Should be called at the very end of the builder calls.
+     *
+     * @return this {@code MethodTest}.
+     */
+    public MethodTest build() {
         return this;
     }
 
@@ -152,9 +178,8 @@ public class MethodTest {
      * [11] -> volatile
      *
      * @param modifierName The modifier name to set, in all lowercase.
-     * @return the {@code MethodTest} with the modified modifiers.
      */
-    private MethodTest observeModifier(String modifierName) {
+    private void observeModifier(String modifierName) {
         switch (modifierName) {
             case "public" -> modifiers[0] = 1;
             case "private" -> modifiers[1] = 1;
@@ -169,7 +194,5 @@ public class MethodTest {
             case "synchronized" -> modifiers[10] = 1;
             case "volatile" -> modifiers[11] = 1;
         }
-
-        return this;
     }
 }
