@@ -10,6 +10,14 @@ import java.lang.reflect.Modifier;
  */
 public class MethodTestGenerator {
 
+    /**
+     * Generate a {@code MethodTest} given a class name, method name, and an array of parameters.
+     *
+     * @param className  the class name where this method exists
+     * @param methodName the method name to examine
+     * @param parameters the list of parameters of the method, or null if no parameters are expected
+     * @return
+     */
     public static MethodTest generateMethodTest(String className, String methodName,
                                                 Class<?>... parameters) {
         if (className == null || methodName == null || className.isEmpty() || methodName.isEmpty()) {
