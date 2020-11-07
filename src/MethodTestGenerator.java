@@ -8,6 +8,7 @@ import java.lang.reflect.Modifier;
  * @author kedarabhyankar
  * @version 11/07/2020
  */
+@SuppressWarnings("unused")
 public class MethodTestGenerator {
 
     /**
@@ -16,7 +17,7 @@ public class MethodTestGenerator {
      * @param className  the class name where this method exists
      * @param methodName the method name to examine
      * @param parameters the list of parameters of the method, or null if no parameters are expected
-     * @return
+     * @return the built {@code MethodTest}.
      */
     public static MethodTest generateMethodTest(String className, String methodName,
                                                 Class<?>... parameters) {
