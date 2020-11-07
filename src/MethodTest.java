@@ -1,3 +1,4 @@
+import java.lang.reflect.Parameter;
 import java.util.Arrays;
 
 /**
@@ -13,7 +14,7 @@ public class MethodTest {
     private String methodName;
     private int[] modifiers;
     private Class<?>[] throwsClazz;
-    private Class<?>[] parameterClazz;
+    private Parameter[] parameterClazz;
 
     /**
      * The {@code MethodTest} constructor. In order to use this test builder, use this as a base and then build a
@@ -102,8 +103,8 @@ public class MethodTest {
      * @param parameters the parameters to add to a {@code MethodTest}
      * @return the new {@code MethodTest}.
      */
-    public MethodTest setParameters(Class<?>[] parameters) {
-        for (Class<?> p : parameters) {
+    public MethodTest setParameters(Parameter[] parameters) {
+        for (Parameter p : parameters) {
             this.addParameter(p);
         }
         return this;
@@ -115,19 +116,19 @@ public class MethodTest {
      * @param paramClazz the parameter to add to the {@code MethodTest}.
      */
     @SuppressWarnings("unused")
-    private void addParameter(Class<?> paramClazz) {
+    private void addParameter(Parameter paramClazz) {
         if (this.parameterClazz == null) {
-            this.parameterClazz = new Class<?>[1];
+            this.parameterClazz = new Parameter[1];
             this.parameterClazz[0] = paramClazz;
         }
 
-        Class<?>[] tempClazz = new Class<?>[this.parameterClazz.length];
+        Parameter[] tempClazz = new Parameter[this.parameterClazz.length];
         //noinspection ManualArrayCopy
         for (int i = 0; i < this.parameterClazz.length; i++) {
             tempClazz[i] = this.parameterClazz[i];
         }
 
-        this.parameterClazz = new Class<?>[this.parameterClazz.length + 1];
+        this.parameterClazz = new Parameter[this.parameterClazz.length + 1];
         //noinspection ManualArrayCopy
         for (int i = 0; i < tempClazz.length; i++) {
             this.parameterClazz[i] = tempClazz[i];
