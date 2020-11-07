@@ -3,6 +3,9 @@ import java.util.Arrays;
 /**
  * A specialized way to build a specific test case for a Method. Methods are then compared for equality
  * by invocation of the {@code assertEquality} method.
+ *
+ * @author kedarabhyankar
+ * @version 11/7/2020
  */
 @SuppressWarnings("unused")
 public class MethodTest {
