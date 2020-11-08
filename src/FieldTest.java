@@ -1,11 +1,13 @@
 import java.util.Arrays;
 
+@SuppressWarnings("unused")
 public class FieldTest {
 
     private String fieldName;
     private Class<?> fieldType;
     private int[] modifiers;
 
+    @SuppressWarnings("unused")
     public FieldTest() {
         //do nothing
     }
@@ -13,9 +15,10 @@ public class FieldTest {
     /**
      * Set the expected field name.
      *
-     * @param fieldName
+     * @param fieldName The name of this field.
      * @return the modified {@code FieldTest} object.
      */
+    @SuppressWarnings("unused")
     public FieldTest setFieldName(String fieldName) {
         this.fieldName = fieldName;
         return this;
@@ -27,6 +30,7 @@ public class FieldTest {
      * @param fieldType the class representative of the type of this field.
      * @return the modified {@code FieldTest} object.
      */
+    @SuppressWarnings("unused")
     public FieldTest setFieldType(Class<?> fieldType) {
         this.fieldType = fieldType;
         return this;
@@ -62,10 +66,11 @@ public class FieldTest {
     }
 
     /**
-     * A build method to satisfy the methdo contract of a builder framework.
+     * A build method to satisfy the method contract of a builder framework.
      *
      * @return the built {@code FieldTest}.
      */
+    @SuppressWarnings("unused")
     public FieldTest build() {
         return this;
     }
@@ -77,6 +82,7 @@ public class FieldTest {
      * @param fieldTest The field to test equality against.
      * @return a boolean value indicative of if the two Fields are equal.
      */
+    @SuppressWarnings("unused")
     public boolean assertEquality(FieldTest fieldTest) {
         return this.fieldName.equals(fieldTest.fieldName) &&
                 this.fieldType.equals(fieldTest.fieldType) &&
