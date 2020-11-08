@@ -29,16 +29,14 @@ public class MethodTestGenerator {
         try {
             classReference = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
+            return new MethodTestFailure(e);
         }
 
         Method classReferenceMethod;
         try {
             classReferenceMethod = classReference.getDeclaredMethod(methodName, parameters);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            return null;
+            return new MethodTestFailure(e);
         }
 
         String modifierString = Modifier.toString(classReferenceMethod.getModifiers());

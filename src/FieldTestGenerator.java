@@ -13,16 +13,14 @@ public class FieldTestGenerator {
         try {
             classReference = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
+            return new FieldTestFailure(e);
         }
 
         Field fieldReference;
         try {
             fieldReference = classReference.getDeclaredField(fieldName);
         } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            return null;
+            return new FieldTestFailure(e);
         }
 
         return new FieldTest().setFieldName(fieldReference.getName())
