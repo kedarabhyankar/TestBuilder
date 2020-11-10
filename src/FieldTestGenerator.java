@@ -1,6 +1,13 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+/**
+ * Build a {@code FieldTest} from a class name and field name. You can then
+ * use this to check against another {@code FieldTest} to check for equality.
+ *
+ * @author kedarabhyankar
+ * @version 11/07/2020
+ */
 @SuppressWarnings("unused")
 public class FieldTestGenerator {
 

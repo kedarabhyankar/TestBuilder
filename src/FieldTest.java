@@ -1,5 +1,11 @@
 import java.util.Arrays;
-
+/**
+ * A specialized way to build a specific test case for a Field. Fields are then compared for equality
+ * by invocation of the {@code assertEquality} method.
+ *
+ * @author kedarabhyankar
+ * @version 11/07/2020
+ */
 @SuppressWarnings("unused")
 public class FieldTest {
 
