@@ -137,8 +137,14 @@ public class MethodTest {
         this.parameterClazz[tempClazz.length] = paramClazz;
     }
 
+    /**
+     * Set the return type for a {@code MethodTest}.
+     *
+     * @param clazz the class that this {@code MethodTest} is set as.
+     * @return the method test after being built.
+     */
     public MethodTest setReturnType(Class<?> clazz) {
-        this.returnType = returnType;
+        this.returnType = clazz;
         return this;
     }
 
