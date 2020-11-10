@@ -54,6 +54,7 @@ public class MethodTestGenerator {
 
         return new MethodTest().setMethodName(methodName).setModifiers(mods).
                 setThrows(classReferenceMethod.getExceptionTypes()).
-                setParameters(classReferenceMethod.getParameters()).build();
+                setParameters(classReferenceMethod.getParameters()).
+                setReturnType(classReferenceMethod.getReturnType()).build();
     }
 }
