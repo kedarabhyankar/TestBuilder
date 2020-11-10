@@ -1,4 +1,5 @@
 import java.util.Arrays;
+
 /**
  * A specialized way to build a specific test case for a Field. Fields are then compared for equality
  * by invocation of the {@code assertEquality} method.
@@ -82,6 +83,67 @@ public class FieldTest {
     }
 
     /**
+     * Get a String array of modifiers representative of the modifiers that the method that
+     * the {@code MethodTest} object represents.
+     *
+     * @return A modifier list of the modifiers applicable to the method
+     */
+    @SuppressWarnings("DuplicatedCode")
+    private String[] getNamedModifiers() {
+        //count number of valid modifiers
+        //noinspection DuplicatedCode
+        int numMods = 0;
+        //noinspection ForLoopReplaceableByForEach
+        for (int i = 0; i < modifiers.length; i++) {
+            if (modifiers[i] == 1) {
+                numMods++;
+            }
+        }
+
+        String[] namedModifiers = new String[numMods];
+        int arrPtr = 0;
+        if (modifiers[0] == 1) {
+            namedModifiers[arrPtr++] = "public";
+        }
+        if (modifiers[1] == 1) {
+            namedModifiers[arrPtr++] = "private";
+        }
+        if (modifiers[2] == 1) {
+            namedModifiers[arrPtr++] = "protected";
+        }
+        if (modifiers[3] == 1) {
+            namedModifiers[arrPtr++] = "static";
+        }
+        if (modifiers[4] == 1) {
+            namedModifiers[arrPtr++] = "final";
+        }
+        if (modifiers[5] == 1) {
+            namedModifiers[arrPtr++] = "transient";
+        }
+        if (modifiers[6] == 1) {
+            namedModifiers[arrPtr++] = "abstract";
+        }
+        if (modifiers[7] == 1) {
+            namedModifiers[arrPtr++] = "native";
+        }
+        if (modifiers[8] == 1) {
+            namedModifiers[arrPtr++] = "interface";
+        }
+        if (modifiers[9] == 1) {
+            namedModifiers[arrPtr++] = "strict";
+        }
+        if (modifiers[10] == 1) {
+            namedModifiers[arrPtr++] = "synchronized";
+        }
+        if (modifiers[11] == 1) {
+            //noinspection UnusedAssignment
+            namedModifiers[arrPtr++] = "volatile";
+        }
+
+        return namedModifiers;
+    }
+
+    /**
      * Determine if equality exists between two {@code FieldTest} objects. Invoke this method from the
      * expected object, and pass the actual object to it.
      *
@@ -89,10 +151,22 @@ public class FieldTest {
      * @return a boolean value indicative of if the two Fields are equal.
      */
     @SuppressWarnings("unused")
-    public boolean assertEquality(FieldTest fieldTest) {
-        return this.fieldName.equals(fieldTest.fieldName) &&
-                this.fieldType.equals(fieldTest.fieldType) &&
-                Arrays.equals(this.modifiers, fieldTest.modifiers);
+    public TestingTuple assertEquality(FieldTest fieldTest) {
+        if (!this.fieldName.equals(fieldTest.fieldName)) {
+            return new TestingTuple(false, "Ensure that your field names match! Your " +
+                    "field name was " + fieldTest.fieldName + ", when it should have been " + this.fieldName + ".");
+        }
+        if (!this.fieldType.equals(fieldTest.fieldType)) {
+            return new TestingTuple(false, "Ensure that your field type matches the" +
+                    " expected type! Yours was of type " + fieldType.getName() + ", but it should have been " +
+                    this.fieldType.getName() + ".");
+        }
+        if (!Arrays.equals(this.modifiers, fieldTest.modifiers)) {
+            return new TestingTuple(false, "Ensure that your field modifiers match! Your" +
+                    "field had modifiers " + Arrays.toString(fieldTest.getNamedModifiers()) + ", when it should" +
+                    "have been " + Arrays.toString(this.getNamedModifiers()) + ".");
+        }
+        return new TestingTuple(true, "");
     }
 
     /**
