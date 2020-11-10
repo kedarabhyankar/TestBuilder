@@ -15,6 +15,7 @@ public class MethodTest {
     private int[] modifiers;
     private Class<?>[] throwsClazz;
     private Parameter[] parameterClazz;
+    private Class<?> returnType;
 
     /**
      * The {@code MethodTest} constructor. In order to use this test builder, use this as a base and then build a
@@ -136,6 +137,11 @@ public class MethodTest {
         this.parameterClazz[tempClazz.length] = paramClazz;
     }
 
+    public MethodTest setReturnType(Class<?> clazz) {
+        this.returnType = returnType;
+        return this;
+    }
+
     /**
      * A build method to return the object. Should be called at the very end of the builder calls.
      *
@@ -236,6 +242,11 @@ public class MethodTest {
                     " For the method " + this.methodName + ", your modifiers were " +
                     Arrays.toString(methodTest.getNamedModifiers()) + ", when they should have been " +
                     Arrays.toString(this.getNamedModifiers()) + ".");
+        }
+        if (this.returnType.equals(methodTest.returnType)) {
+            return new TestingTuple(false, "Ensure that your return type match what's expected!" +
+                    " For the method " + this.methodName + ", you have a return type of " +
+                    methodTest.returnType + ", when it should be " + this.returnType + ".");
         }
 
         return new TestingTuple(true, "");
