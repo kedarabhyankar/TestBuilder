@@ -154,6 +154,7 @@ public class MethodTest {
     private String[] getNamedModifiers() {
         //count number of valid modifiers
         int numMods = 0;
+        //noinspection ForLoopReplaceableByForEach
         for (int i = 0; i < modifiers.length; i++) {
             if (modifiers[i] == 1) {
                 numMods++;
