@@ -146,6 +146,64 @@ public class MethodTest {
     }
 
     /**
+     * Get a String array of modifiers representative of the modifiers that the method that
+     * the {@code MethodTest} object represents.
+     *
+     * @return A modifier list of the modifiers applicable to the method
+     */
+    private String[] getNamedModifiers() {
+        //count number of valid modifiers
+        int numMods = 0;
+        for (int i = 0; i < modifiers.length; i++) {
+            if (modifiers[i] == 1) {
+                numMods++;
+            }
+        }
+
+        String[] namedModifiers = new String[numMods];
+        int arrPtr = 0;
+        if (modifiers[0] == 1) {
+            namedModifiers[arrPtr++] = "public";
+        }
+        if (modifiers[1] == 1) {
+            namedModifiers[arrPtr++] = "private";
+        }
+        if (modifiers[2] == 1) {
+            namedModifiers[arrPtr++] = "protected";
+        }
+        if (modifiers[3] == 1) {
+            namedModifiers[arrPtr++] = "static";
+        }
+        if (modifiers[4] == 1) {
+            namedModifiers[arrPtr++] = "final";
+        }
+        if (modifiers[5] == 1) {
+            namedModifiers[arrPtr++] = "transient";
+        }
+        if (modifiers[6] == 1) {
+            namedModifiers[arrPtr++] = "abstract";
+        }
+        if (modifiers[7] == 1) {
+            namedModifiers[arrPtr++] = "native";
+        }
+        if (modifiers[8] == 1) {
+            namedModifiers[arrPtr++] = "interface";
+        }
+        if (modifiers[9] == 1) {
+            namedModifiers[arrPtr++] = "strict";
+        }
+        if (modifiers[10] == 1) {
+            namedModifiers[arrPtr++] = "synchronized";
+        }
+        if (modifiers[11] == 1) {
+            //noinspection UnusedAssignment
+            namedModifiers[arrPtr++] = "volatile";
+        }
+
+        return namedModifiers;
+    }
+
+    /**
      * A method to check if two methods are equal. Invoke this from the expected object, and pass the
      * generated MethodTest to this method to compare it for equality.
      *
@@ -154,10 +212,32 @@ public class MethodTest {
      * @return true if equal, false if not.
      */
     @SuppressWarnings("unused")
-    public boolean assertEquality(MethodTest methodTest) {
-        return Arrays.equals(parameterClazz, methodTest.parameterClazz) && Arrays.equals(throwsClazz,
-                methodTest.throwsClazz) && this.methodName.equals(methodTest.methodName) &&
-                Arrays.equals(this.modifiers, methodTest.modifiers);
+    public TestingTuple assertEquality(MethodTest methodTest) {
+        if (!this.methodName.equals(methodTest.methodName)) {
+            return new TestingTuple(false, "Ensure that your methods have the correct" +
+                    "name! Your method is named " + methodTest.methodName + ", and it should be named " +
+                    methodName);
+        }
+        if (!Arrays.equals(parameterClazz, methodTest.parameterClazz)) {
+            return new TestingTuple(false, "Ensure that your parameters " +
+                    "match between methods! For the method " + this.methodName + ", your parameters were " +
+                    Arrays.toString(methodTest.parameterClazz) + ", when they should have been " +
+                    Arrays.toString(parameterClazz) + ".");
+        }
+        if (!Arrays.equals(throwsClazz, methodTest.throwsClazz)) {
+            return new TestingTuple(false, "Ensure that your throws statements match what's" +
+                    "expected! For the method " + this.methodName + ", your throws statements were " +
+                    Arrays.toString(methodTest.throwsClazz) + ", when they should have been " +
+                    Arrays.toString(throwsClazz) + ".");
+        }
+        if (!Arrays.equals(this.modifiers, methodTest.modifiers)) {
+            return new TestingTuple(false, "Ensure that your modifiers match what's expected!" +
+                    " For the method " + this.methodName + ", your modifiers were " +
+                    Arrays.toString(methodTest.getNamedModifiers()) + ", when they should have been " +
+                    Arrays.toString(this.getNamedModifiers()) + ".");
+        }
+
+        return new TestingTuple(true, "");
     }
 
 
