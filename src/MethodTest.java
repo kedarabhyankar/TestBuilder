@@ -11,10 +11,25 @@ import java.util.Arrays;
 @SuppressWarnings("unused")
 public class MethodTest {
 
+    /**
+     * The name of the method
+     */
     private String methodName;
+    /**
+     * The int modifiers, if any
+     */
     private int[] modifiers;
+    /**
+     * The class associated as a throwable, if any
+     */
     private Class<?>[] throwsClazz;
+    /**
+     * The parameters of this method, if any
+     */
     private Parameter[] parameterClazz;
+    /**
+     * The return type of this methodq
+     */
     private Class<?> returnType;
 
     /**

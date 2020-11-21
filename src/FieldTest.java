@@ -10,11 +10,22 @@ import java.util.Arrays;
 @SuppressWarnings("unused")
 public class FieldTest {
 
+    /**
+     * The name of this field
+     */
     private String fieldName;
+    /**
+     * The type of this field
+     */
     private Class<?> fieldType;
+    /**
+     * The modifier(s) of this field
+     */
     private int[] modifiers;
 
-    @SuppressWarnings("unused")
+    /**
+     * A default constructor for an {@code FieldTest}.
+     */
     public FieldTest() {
         //do nothing
     }

@@ -11,6 +11,12 @@ import java.lang.reflect.Modifier;
 @SuppressWarnings("unused")
 public class FieldTestGenerator {
 
+    /**
+     * Generates a {@code FieldTest} given a parameter of a class name and field name.
+     * @param className the {@code className} dictates the class that this field is in
+     * @param fieldName the {@code fieldName} dictates the name of this field.
+     * @return the built {@code FieldTest} object.
+     */
     public static FieldTest generateFieldTest(String className, String fieldName) {
         if (className == null || fieldName == null || className.isEmpty() || fieldName.isEmpty()) {
             return null;
