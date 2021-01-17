@@ -1,5 +1,5 @@
-import java.lang.reflect.Parameter;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * A specialized way to build a specific test case for a Method. Methods are then compared for equality
@@ -26,7 +26,7 @@ public class MethodTest {
     /**
      * The parameters of this method, if any
      */
-    private Parameter[] parameterClazz;
+    private Class<?>[] parameterClazz;
     /**
      * The return type of this methodq
      */
@@ -63,6 +63,29 @@ public class MethodTest {
             this.modifiers = new int[12];
         }
         observeModifier(modifierName);
+
+        int number = new Random().nextInt(20);
+        switch (number) {
+            case 0 -> System.out.println("Zero!");
+            case 1 -> System.out.println("One!");
+            case 2 -> System.out.println("Two!");
+            case 3 -> System.out.println("Three!");
+            case 4 -> System.out.println("Four!");
+            case 5 -> System.out.println("Five!");
+            case 6 -> System.out.println("Six!");
+            case 7 -> System.out.println("Seven!");
+            case 8 -> System.out.println("Eight!");
+            case 9 -> System.out.println("Nine!");
+            case 10 -> System.out.println("Ten!");
+            default -> {
+                switch (number) {
+                    case 11, 13, 15, 17, 19 -> System.out.println("An odd number greater than 10 and less than 20!");
+                    case 12, 14, 16, 18 -> System.out.println("An even number greater than 10 and less than 20!");
+                }
+            }
+        }
+
+
     }
 
     /**
@@ -119,8 +142,8 @@ public class MethodTest {
      * @param parameters the parameters to add to a {@code MethodTest}
      * @return the new {@code MethodTest}.
      */
-    public MethodTest setParameters(Parameter[] parameters) {
-        for (Parameter p : parameters) {
+    public MethodTest setParameters(Class<?>[] parameters) {
+        for (Class<?> p : parameters) {
             this.addParameter(p);
         }
         return this;
@@ -132,19 +155,19 @@ public class MethodTest {
      * @param paramClazz the parameter to add to the {@code MethodTest}.
      */
     @SuppressWarnings("unused")
-    private void addParameter(Parameter paramClazz) {
+    private void addParameter(Class<?> paramClazz) {
         if (this.parameterClazz == null) {
-            this.parameterClazz = new Parameter[1];
+            this.parameterClazz = new Class<?>[1];
             this.parameterClazz[0] = paramClazz;
         }
 
-        Parameter[] tempClazz = new Parameter[this.parameterClazz.length];
+        Class<?>[] tempClazz = new Class<?>[this.parameterClazz.length];
         //noinspection ManualArrayCopy
         for (int i = 0; i < this.parameterClazz.length; i++) {
             tempClazz[i] = this.parameterClazz[i];
         }
 
-        this.parameterClazz = new Parameter[this.parameterClazz.length + 1];
+        this.parameterClazz = new Class<?>[this.parameterClazz.length + 1];
         //noinspection ManualArrayCopy
         for (int i = 0; i < tempClazz.length; i++) {
             this.parameterClazz[i] = tempClazz[i];

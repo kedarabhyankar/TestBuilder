@@ -1,5 +1,6 @@
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Parameter;
 
 /**
  * Build a {@code MethodTest} from a class name, method name, and an array of parameters. You can then
@@ -54,7 +55,7 @@ public class MethodTestGenerator {
 
         return new MethodTest().setMethodName(methodName).setModifiers(mods).
                 setThrows(classReferenceMethod.getExceptionTypes()).
-                setParameters(classReferenceMethod.getParameters()).
+                setParameters(parameters).
                 setReturnType(classReferenceMethod.getReturnType()).build();
     }
 }
