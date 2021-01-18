@@ -6,7 +6,7 @@ import java.util.Random;
  * by invocation of the {@code assertEquality} method.
  *
  * @author kedarabhyankar
- * @version 11/07/2020
+ * @version 07/31/2021
  */
 @SuppressWarnings("unused")
 public class MethodTest {
@@ -243,7 +243,7 @@ public class MethodTest {
      */
     @SuppressWarnings("unused")
     public TestingTuple assertEquality(MethodTest methodTest) {
-        if (!this.methodName.equals(methodTest.methodName)) {
+        if (this.methodName != null && methodTest.methodName != null && !this.methodName.equals(methodTest.methodName)) {
             return new TestingTuple(false, "Ensure that your methods have the correct" +
                     "name! Your method is named " + methodTest.methodName + ", and it should be named " +
                     methodName);

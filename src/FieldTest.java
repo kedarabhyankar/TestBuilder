@@ -5,7 +5,7 @@ import java.util.Arrays;
  * by invocation of the {@code assertEquality} method.
  *
  * @author kedarabhyankar
- * @version 11/07/2020
+ * @version 07/31/2021
  */
 @SuppressWarnings("unused")
 public class FieldTest {
@@ -14,6 +14,12 @@ public class FieldTest {
      * The name of this field
      */
     private String fieldName;
+
+    /**
+     * The alternative names for this field
+     */
+    private String[] alternativeNames;
+
     /**
      * The type of this field
      */
@@ -28,6 +34,7 @@ public class FieldTest {
      */
     public FieldTest() {
         //do nothing
+        this.alternativeNames = new String[1];
     }
 
     /**
@@ -39,6 +46,7 @@ public class FieldTest {
     @SuppressWarnings("unused")
     public FieldTest setFieldName(String fieldName) {
         this.fieldName = fieldName;
+        this.alternativeNames[0] = fieldName;
         return this;
     }
 
@@ -51,6 +59,21 @@ public class FieldTest {
     @SuppressWarnings("unused")
     public FieldTest setFieldType(Class<?> fieldType) {
         this.fieldType = fieldType;
+        return this;
+    }
+
+    /**
+     * Add an alternative name to the field.
+     *
+     * @param alternativeName An alternative name to add to the field
+     * @return the modified {@code FieldTest} object.
+     */
+    public FieldTest addAlternativeName(String alternativeName) {
+        String[] tempAlternativeNames = new String[this.alternativeNames.length];
+        System.arraycopy(alternativeNames, 0, tempAlternativeNames, 0, alternativeNames.length);
+        this.alternativeNames = new String[tempAlternativeNames.length + 1];
+        System.arraycopy(tempAlternativeNames, 0, this.alternativeNames, 0, tempAlternativeNames.length);
+        this.alternativeNames[tempAlternativeNames.length] = alternativeName;
         return this;
     }
 
@@ -163,7 +186,7 @@ public class FieldTest {
      */
     @SuppressWarnings("unused")
     public TestingTuple assertEquality(FieldTest fieldTest) {
-        if (!this.fieldName.equals(fieldTest.fieldName)) {
+        if (!this.fieldName.equals(fieldTest.fieldName) || !compareNameEqualityAcrossAlternativeNames(fieldTest.fieldName)) {
             return new TestingTuple(false, "Ensure that your field names match! Your " +
                     "field name was " + fieldTest.fieldName + ", when it should have been " + this.fieldName + ".");
         }
@@ -178,6 +201,15 @@ public class FieldTest {
                     "have been " + Arrays.toString(this.getNamedModifiers()) + ".");
         }
         return new TestingTuple(true, "");
+    }
+
+    private boolean compareNameEqualityAcrossAlternativeNames(String fieldName) {
+        for (String associatedName : this.alternativeNames) {
+            if (fieldName.equals(associatedName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
