@@ -64,27 +64,6 @@ public class MethodTest {
         }
         observeModifier(modifierName);
 
-        int number = new Random().nextInt(20);
-        switch (number) {
-            case 0 -> System.out.println("Zero!");
-            case 1 -> System.out.println("One!");
-            case 2 -> System.out.println("Two!");
-            case 3 -> System.out.println("Three!");
-            case 4 -> System.out.println("Four!");
-            case 5 -> System.out.println("Five!");
-            case 6 -> System.out.println("Six!");
-            case 7 -> System.out.println("Seven!");
-            case 8 -> System.out.println("Eight!");
-            case 9 -> System.out.println("Nine!");
-            case 10 -> System.out.println("Ten!");
-            default -> {
-                switch (number) {
-                    case 11, 13, 15, 17, 19 -> System.out.println("An odd number greater than 10 and less than 20!");
-                    case 12, 14, 16, 18 -> System.out.println("An even number greater than 10 and less than 20!");
-                }
-            }
-        }
-
 
     }
 
