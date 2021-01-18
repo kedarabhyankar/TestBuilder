@@ -47,20 +47,10 @@ public class MethodTestGenerator {
         // Convert text modifiers to actual modifiers
         String modifierString = Modifier.toString(classReferenceMethod.getModifiers());
         //split modifiers by braces and then by space
-        String[] modifiers = modifierString.substring(1, modifierString.length() - 1).split(" ");
-
-        String[] mods = new String[modifiers.length];
-        int modsPtr = 0;
-        for (String s : modifiers) {
-            String modName = s.substring(0, s.indexOf("="));
-            boolean isMod = Boolean.parseBoolean(s.substring(s.indexOf("=")));
-            if (isMod) {
-                mods[modsPtr++] = modName;
-            }
-        }
+        String[] modifiers = modifierString.split(" ");
 
         // return a built method with all the parts from before
-        return new MethodTest().setMethodName(methodName).setModifiers(mods).
+        return new MethodTest().setMethodName(methodName).setModifiers(modifiers).
                 setThrows(classReferenceMethod.getExceptionTypes()).
                 setParameters(parameters).
                 setReturnType(classReferenceMethod.getReturnType()).build();

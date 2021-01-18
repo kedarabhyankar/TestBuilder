@@ -266,7 +266,7 @@ public class MethodTest {
                     Arrays.toString(methodTest.getNamedModifiers()) + ", when they should have been " +
                     Arrays.toString(this.getNamedModifiers()) + ".");
         }
-        if (this.returnType.equals(methodTest.returnType)) {
+        if (!this.returnType.getName().equals(methodTest.returnType.getName())) {
             return new TestingTuple(false, "Ensure that your return type match what's expected!" +
                     " For the method " + this.methodName + ", you have a return type of " +
                     methodTest.returnType + ", when it should be " + this.returnType + ".");
