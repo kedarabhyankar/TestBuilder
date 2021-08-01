@@ -28,15 +28,4 @@ public class DemoLibrary {
             fail(res.getTestMessage());
         }
     }
-
-    @Test(timeout = 1000)
-    public void testMethodDoesntExist(){
-        MethodTest badMethod = MethodTestGenerator.generateMethodTest("Something", "hello");
-        MethodTest badExpected = new MethodTest().setMethodName("hello").setModifiers(new String[] {"public"}).
-                setReturnType(void.class).build();
-        TestingTuple res = badExpected.assertEquality(badMethod);
-        if(!res.getTestState()){
-            fail(res.getTestMessage());
-        }
-    }
 }
