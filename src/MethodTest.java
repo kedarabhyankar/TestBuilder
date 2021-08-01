@@ -16,6 +16,10 @@ public class MethodTest {
      */
     private String methodName;
     /**
+     * The alternative names of a method
+     */
+    private String[] alternativeNames;
+    /**
      * The int modifiers, if any
      */
     private int[] modifiers;
@@ -37,7 +41,7 @@ public class MethodTest {
      * test case out of it.
      */
     public MethodTest() {
-        //do nothing; this can't be used to make a test case. Build from here!
+        this.alternativeNames = new String[1];
     }
 
     /**
@@ -49,6 +53,7 @@ public class MethodTest {
     @SuppressWarnings("unused")
     public MethodTest setMethodName(String methodName) {
         this.methodName = methodName;
+        this.alternativeNames[0] = methodName;
         return this;
     }
 
@@ -63,8 +68,20 @@ public class MethodTest {
             this.modifiers = new int[12];
         }
         observeModifier(modifierName);
+    }
 
-
+    /**
+     * Adds an alternative name to the {@code MethodTest}.
+     *
+     * @param alternativeName the alternative name to add
+     */
+    public MethodTest addAlternativeName(String alternativeName) {
+        String[] tempAlternativeNames = new String[this.alternativeNames.length];
+        System.arraycopy(alternativeNames, 0, tempAlternativeNames, 0, alternativeNames.length);
+        this.alternativeNames = new String[tempAlternativeNames.length + 1];
+        System.arraycopy(tempAlternativeNames, 0, this.alternativeNames, 0, tempAlternativeNames.length);
+        this.alternativeNames[tempAlternativeNames.length] = alternativeName;
+        return this;
     }
 
     /**
@@ -243,7 +260,9 @@ public class MethodTest {
      */
     @SuppressWarnings("unused")
     public TestingTuple assertEquality(MethodTest methodTest) {
-        if (this.methodName != null && methodTest.methodName != null && !this.methodName.equals(methodTest.methodName)) {
+        if (this.methodName != null && methodTest.methodName != null &&
+                (!this.methodName.equals(methodTest.methodName) ||
+                        !compareNameEqualityAcrossAlternativeNames(methodTest.methodName))) {
             return new TestingTuple(false, "Ensure that your methods have the correct" +
                     "name! Your method is named " + methodTest.methodName + ", and it should be named " +
                     methodName);
@@ -273,6 +292,21 @@ public class MethodTest {
         }
 
         return new TestingTuple(true, "");
+    }
+
+    /**
+     * Compare a method name across the alternative names.
+     *
+     * @param methodName the method name to compare
+     * @return true if any alternative names match, false otherwise.
+     */
+    private boolean compareNameEqualityAcrossAlternativeNames(String methodName) {
+        for (String associatedName : this.alternativeNames) {
+            if (methodName.equals(associatedName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

@@ -203,6 +203,12 @@ public class FieldTest {
         return new TestingTuple(true, "");
     }
 
+    /**
+     * Compare a field name across the alternative names.
+     *
+     * @param fieldName the field name to compare
+     * @return true if any alternative names match, false otherwise.
+     */
     private boolean compareNameEqualityAcrossAlternativeNames(String fieldName) {
         for (String associatedName : this.alternativeNames) {
             if (fieldName.equals(associatedName)) {
