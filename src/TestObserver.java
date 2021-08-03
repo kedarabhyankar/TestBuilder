@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class TestObserver extends TestWatcher {
 
-    private ArrayList<String> testResults = new ArrayList<>();
+    private static final ArrayList<String> testResults = new ArrayList<>();
 
     protected void failed(Throwable e, Description description) {
         String message = e.getMessage()
@@ -24,14 +24,14 @@ public class TestObserver extends TestWatcher {
     @SuppressWarnings("StringBufferReplaceableByString")
     private String generateSucceededMessage(String methodName) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<tr><td>");
+        sb.append("<tr><td><center>");
         sb.append(methodName);
-        sb.append("</td>");
-        sb.append("<td style=\"background-color:#ff0100\">\"");
-        sb.append("Failed.");
+        sb.append("</center></td>");
+        sb.append("<td style=\"background-color:#7ffe00\">");
+        sb.append("<center>Passed.</center>");
         sb.append("</td>");
         sb.append("<td>");
-        sb.append("Great Work!");
+        sb.append("<center>Great Work!</center>");
         sb.append("</td>");
         return sb.toString();
     }
@@ -39,19 +39,19 @@ public class TestObserver extends TestWatcher {
     @SuppressWarnings("StringBufferReplaceableByString")
     private String generateFailedMessage(String methodName, String message) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<tr><td>");
+        sb.append("<tr><td><center>");
         sb.append(methodName);
+        sb.append("</center></td>");
+        sb.append("<td style=\"background-color:#ff0100\">");
+        sb.append("<center>Failed.</center>");
         sb.append("</td>");
-        sb.append("<td style=\"background-color:#ff0100\">\"");
-        sb.append("Failed.");
-        sb.append("</td>");
-        sb.append("<td>");
+        sb.append("<td><center>");
         sb.append(message);
-        sb.append("</td>");
+        sb.append("</center></td>");
         return sb.toString();
     }
 
-    public void printResults(){
+    public static void printResults() {
         try {
             String className = MethodHandles.lookup().lookupClass().toString();
             className = className.substring(className.indexOf(" ") + 1, className.indexOf("Test"));

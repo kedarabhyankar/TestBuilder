@@ -1,14 +1,25 @@
 import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.io.File;
 
 import static org.junit.Assert.fail;
 
 public class DemoLibrary {
 
-    @Rule
-    public static TestObserver monitor = new TestObserver();
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @BeforeClass
+    public static void ready() {
+        File gradeFile = new File("grade.html");
+        if (gradeFile.exists()) {
+            gradeFile.delete();
+        }
+    }
 
+    @Rule
+    public TestObserver monitor = new TestObserver();
 
     @Test(timeout = 1000)
     public void testSimpleMethodExample() {
@@ -37,6 +48,6 @@ public class DemoLibrary {
 
     @AfterClass
     public static void cleanup() {
-        monitor.printResults();
+        TestObserver.printResults();
     }
 }
