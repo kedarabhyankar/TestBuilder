@@ -1,8 +1,14 @@
+import org.junit.AfterClass;
+import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.fail;
 
 public class DemoLibrary {
+
+    @Rule
+    public static TestObserver monitor = new TestObserver();
+
 
     @Test(timeout = 1000)
     public void testSimpleMethodExample() {
@@ -27,5 +33,10 @@ public class DemoLibrary {
         if (!res.getTestState()) {
             fail(res.getTestMessage());
         }
+    }
+
+    @AfterClass
+    public static void cleanup() {
+        monitor.printResults();
     }
 }
